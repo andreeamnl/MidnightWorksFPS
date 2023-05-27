@@ -228,6 +228,8 @@ public class FPController : MonoBehaviour
             Vector3 pos = new Vector3(this.transform.position.x, Terrain.activeTerrain.SampleHeight(this.transform.position), this.transform.position.z);
             GameObject steve = Instantiate(stevePrefab,pos, this.transform.rotation);            //add 3rd person anim model for death scene
             steve.GetComponent<Animator>().SetTrigger("Death");
+            GameStats.gameOver = true;     //this has to happen BEFORE we destroy this.gameObject!!!
+            Debug.Log(GameStats.gameOver);
             Destroy(this.gameObject);
         }
 

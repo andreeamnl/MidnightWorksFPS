@@ -29,6 +29,7 @@ public class ZombieController : MonoBehaviour
     }
 
     float DistanceToPlayer(){
+        if(GameStats.gameOver) return 1000f;
         return Vector3.Distance(target.transform.position,this.transform.position);
     }
 
@@ -64,6 +65,10 @@ public class ZombieController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(target == null && !GameStats.gameOver){
+            target = GameObject.FindWithTag("Player");
+            return;
+        }
         switch (state){
             case STATE.IDLE:
                 if (CanSeePlayer()) state = STATE.CHASE;
@@ -83,20 +88,22 @@ public class ZombieController : MonoBehaviour
                     anim.SetBool("isWalking", true);
                    
                 }
-                if (CanSeePlayer()) state = STATE.CHASE;
+                if (CanSeePlayer() ) state = STATE.CHASE;
                 break;
             case STATE.CHASE:
+                if(GameStats.gameOver) {turnTriggersOff(); state = STATE.WANDER; return;}
                 agent.SetDestination(target.transform.position);
                 agent.stoppingDistance=2;
                 turnTriggersOff();
                 //agent.speed = RunningSpeed;
                 anim.SetBool("isRunning", true);
 
-                if(agent.remainingDistance<= agent.stoppingDistance && !agent.pathPending){
+                if(agent.remainingDistance<= agent.stoppingDistance && !agent.pathPending ){
                     state = STATE.ATTACK;
                 }
                 break;
             case STATE.ATTACK:
+                if(GameStats.gameOver) {turnTriggersOff(); state = STATE.WANDER; return;}
                 turnTriggersOff();
                 anim.SetBool("isAttacking", true);
                 this.transform.LookAt(target.transform.position);
