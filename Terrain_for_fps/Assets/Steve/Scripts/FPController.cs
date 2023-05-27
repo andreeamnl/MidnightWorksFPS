@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class FPController : MonoBehaviour
 {
     public GameObject cam; //public exposes object to inspector, drag an drop camera over there
     public GameObject stevePrefab;
+    public GameObject weapon;
     public Slider healthbar;
     public TMPro.TMP_Text ui_ammo;
     public TMPro.TMP_Text ui_clip;
     public Animator anim;   //public exposes object to inspector, drag and drop animation controller over there
     public Transform ShotDirection;
     public AudioSource[] footsteps;
+    
     public AudioSource jump;
     public AudioSource land;
     public AudioSource ammopickup;
@@ -66,6 +69,7 @@ public class FPController : MonoBehaviour
         ui_clip.text = ammoClip.ToString();
         currentSpeed=defaultSpeed;
         isRunning=false;
+        //weapon.gameObject.SetActive(false);
         
         
     }
@@ -265,6 +269,8 @@ public class FPController : MonoBehaviour
             Destroy(this.gameObject);
             GameObject LoseText = Instantiate(LosePrefab);
             LoseText.transform.SetParent(canvas.transform);
+            
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
     }
