@@ -1151,6 +1151,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7870414215327291726, guid: 0868dccaa04cf43298457a276da1f24e, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 684571865}
+    - target: {fileID: 7870414215327291726, guid: 0868dccaa04cf43298457a276da1f24e, type: 3}
       propertyPath: ui_ammo
       value: 
       objectReference: {fileID: 1337071831}
@@ -1162,6 +1166,14 @@ PrefabInstance:
       propertyPath: healthbar
       value: 
       objectReference: {fileID: 1080125049}
+    - target: {fileID: 7870414215327291726, guid: 0868dccaa04cf43298457a276da1f24e, type: 3}
+      propertyPath: gameOverPrefab
+      value: 
+      objectReference: {fileID: 8559003684069809028, guid: 339e6b333016b43e0accbc963b83b8d7, type: 3}
+    - target: {fileID: 7870414215327291726, guid: 0868dccaa04cf43298457a276da1f24e, type: 3}
+      propertyPath: gameoverPrefab
+      value: 
+      objectReference: {fileID: 8559003684069809028, guid: 339e6b333016b43e0accbc963b83b8d7, type: 3}
     - target: {fileID: 7870414215327291761, guid: 0868dccaa04cf43298457a276da1f24e, type: 3}
       propertyPath: m_RootOrder
       value: 15
