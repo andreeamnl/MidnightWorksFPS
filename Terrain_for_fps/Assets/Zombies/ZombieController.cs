@@ -52,7 +52,6 @@ public class ZombieController : MonoBehaviour
         state = STATE.DEAD;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         anim = this.GetComponent<Animator>();
@@ -62,14 +61,13 @@ public class ZombieController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(target == null && !GameStats.gameOver){
             target = GameObject.FindWithTag("Player");
             return;
         }
-        switch (state){
+        switch (state){         //this is an animation state machine done using a basic switch, where each state states when and how another state is triggered
             case STATE.IDLE:
                 if (CanSeePlayer()) state = STATE.CHASE;
                 else
@@ -84,7 +82,6 @@ public class ZombieController : MonoBehaviour
                     agent.SetDestination(dest);
                     agent.stoppingDistance = 0;
                     turnTriggersOff();
-                    //agent.speed = WalkingSpeed;
                     anim.SetBool("isWalking", true);
                    
                 }
@@ -95,7 +92,6 @@ public class ZombieController : MonoBehaviour
                 agent.SetDestination(target.transform.position);
                 agent.stoppingDistance=2;
                 turnTriggersOff();
-                //agent.speed = RunningSpeed;
                 anim.SetBool("isRunning", true);
 
                 if(agent.remainingDistance<= agent.stoppingDistance && !agent.pathPending ){

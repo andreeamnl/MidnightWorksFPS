@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class FPController : MonoBehaviour
 {
-    public GameObject cam; //public exposes object to inspector, drag an drop camera over there
+    public GameObject cam; 
     public GameObject stevePrefab;
     public GameObject weapon;
     public Slider healthbar;
@@ -108,10 +108,8 @@ public class FPController : MonoBehaviour
                 ammoClip--;
                 ui_clip.text = ammoClip.ToString();
                 ProcessZombieHit();
-                Debug.Log("Ammo clip left = " + ammoClip);
             }else if(anim.GetBool("arm")){
                 trigger.Play();    
-                Debug.Log("Empty Clip");            
 
             }
             
@@ -146,9 +144,7 @@ public class FPController : MonoBehaviour
                 if (isRunning)
                 {
                     InvokeRepeating("PlayFootstepsAudio", 0f, 0.25f);
-                }
-                else
-                {
+                }else{
                     InvokeRepeating("PlayFootstepsAudio", 0f, 0.4f);
                 }      
                 //PlayFootstepsAudio();   //please make invoking work
@@ -168,7 +164,6 @@ public class FPController : MonoBehaviour
             if(col.gameObject.tag=="Ammo" && ammo<maxAmmo){        //ammo  pickup
                 ammo=Mathf.Clamp(ammo+10,0,maxAmmo);//checks or makes  it so that if ammo>maxammo cant update anymore
                 ui_ammo.text = ammo.ToString();
-                Debug.Log("Ammo = "+ ammo);
                 Destroy(col.gameObject);
                 ammopickup.Play();
                 }
@@ -178,7 +173,6 @@ public class FPController : MonoBehaviour
             if(col.gameObject.tag=="MedBox" && health<maxHealth){                   //med health pickup
                 health = Mathf.Clamp(health+20,0,maxHealth);
                 healthbar.value=health;
-                Debug.Log("health = "+ health);
                 Destroy(col.gameObject);
                 medpickup.Play();
                 }
@@ -193,7 +187,6 @@ public class FPController : MonoBehaviour
                 GameObject steve = Instantiate(stevePrefab,pos, this.transform.rotation);            //add 3rd person anim model for death scene
                 steve.GetComponent<Animator>().SetTrigger("Dance");
                 GameStats.gameOver = true;     //this has to happen BEFORE we destroy this.gameObject!!!
-                Debug.Log(GameStats.gameOver);
                 Destroy(this.gameObject);
                 GameObject gameOverText = Instantiate(gameOverPrefab);
                 gameOverText.transform.SetParent(canvas.transform);
@@ -259,13 +252,11 @@ public class FPController : MonoBehaviour
     public void TakeHit(float amount){    //add function as an event into the animator at a given attack moment
         health = (int) Mathf.Clamp(health-amount, 0, maxHealth);
         healthbar.value=health;
-        Debug.Log("new new health ="+health);
         if(health == 0){
             Vector3 pos = new Vector3(this.transform.position.x, Terrain.activeTerrain.SampleHeight(this.transform.position), this.transform.position.z);
             GameObject steve = Instantiate(stevePrefab,pos, this.transform.rotation);            //add 3rd person anim model for death scene
             steve.GetComponent<Animator>().SetTrigger("Death");
             GameStats.gameOver = true;     //this has to happen BEFORE we destroy this.gameObject!!!
-            Debug.Log(GameStats.gameOver);
             Destroy(this.gameObject);
             GameObject LoseText = Instantiate(LosePrefab);
             LoseText.transform.SetParent(canvas.transform);

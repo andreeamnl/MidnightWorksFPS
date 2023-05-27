@@ -5,14 +5,12 @@ using UnityEngine;
 public class WeaponSwitching : MonoBehaviour
 {
     public GameObject[]  arms;
-    // Start is called before the first frame update
     void Start()
     {   
         arms[1].gameObject.SetActive(false);
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         ChangeWeapon();
