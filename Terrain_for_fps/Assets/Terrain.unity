@@ -1167,6 +1167,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1080125049}
     - target: {fileID: 7870414215327291726, guid: 0868dccaa04cf43298457a276da1f24e, type: 3}
+      propertyPath: LosePrefab
+      value: 
+      objectReference: {fileID: 693020159354735122, guid: c3d32ed5fb1aa456aabe6091dc00f723, type: 3}
+    - target: {fileID: 7870414215327291726, guid: 0868dccaa04cf43298457a276da1f24e, type: 3}
       propertyPath: gameOverPrefab
       value: 
       objectReference: {fileID: 8559003684069809028, guid: 339e6b333016b43e0accbc963b83b8d7, type: 3}
@@ -1236,7 +1240,7 @@ GameObject:
   - component: {fileID: 560095144}
   - component: {fileID: 560095143}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2943,7 +2947,7 @@ GameObject:
   - component: {fileID: 1381288919}
   - component: {fileID: 1381288918}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

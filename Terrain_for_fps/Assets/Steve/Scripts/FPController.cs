@@ -22,6 +22,7 @@ public class FPController : MonoBehaviour
     public AudioSource reload;
     public GameObject canvas;
     public GameObject gameOverPrefab;
+    public GameObject LosePrefab;
 
     float xSensitivity = 2f;
     float ySensitivity = 2f;
@@ -262,6 +263,8 @@ public class FPController : MonoBehaviour
             GameStats.gameOver = true;     //this has to happen BEFORE we destroy this.gameObject!!!
             Debug.Log(GameStats.gameOver);
             Destroy(this.gameObject);
+            GameObject LoseText = Instantiate(LosePrefab);
+            LoseText.transform.SetParent(canvas.transform);
         }
 
     }
