@@ -13,3 +13,5 @@
 
 ## How to play and purpose
 The FPS must get to the safe zone (the big house to its right) without being killed by the zombies. The zombies have different kill potentials (the "boss" attack has a -30 health drop for the player, the manzombies -10, and the woman -15). The player was given initially 10 stored bullets (to later on use during reload) and a 10 bullet storage clip. Once the bullets run out he can collect the ammo boxes present in the scene by colliding with them, he may also increase his health levels by collecting the red health kit boxes.
+
+This was done in about 21 hours on and off.
