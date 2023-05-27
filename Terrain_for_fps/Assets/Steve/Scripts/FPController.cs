@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class FPController : MonoBehaviour
 {
     public GameObject cam; //public exposes object to inspector, drag an drop camera over there
     public GameObject stevePrefab;
+    public Slider healthbar;
+    public TMPro.TMP_Text ui_ammo;
+    public TMPro.TMP_Text ui_clip;
     public Animator anim;   //public exposes object to inspector, drag and drop animation controller over there
     public Transform ShotDirection;
     public AudioSource[] footsteps;
@@ -53,6 +58,9 @@ public class FPController : MonoBehaviour
         charachterRot=this.transform.localRotation;   //take rotations
 
         health=maxHealth;
+        healthbar.value=health;
+        ui_ammo.text = ammo.ToString();
+        ui_clip.text = ammoClip.ToString();
         currentSpeed=defaultSpeed;
         isRunning=false;
         
@@ -91,6 +99,7 @@ public class FPController : MonoBehaviour
             if(ammoClip>0){
                 anim.SetTrigger("fire");
                 ammoClip--;
+                ui_clip.text = ammoClip.ToString();
                 ProcessZombieHit();
                 Debug.Log("Ammo clip left = " + ammoClip);
             }else if(anim.GetBool("arm")){
@@ -115,8 +124,11 @@ public class FPController : MonoBehaviour
 
             if(ammo>0){
                 int ammoNeeded = ammoClipMax-ammoClip;
+                ammo = Mathf.Clamp(ammo-ammoNeeded,0,maxAmmo);
+                ui_ammo.text = ammo.ToString();
                 anim.SetTrigger("reload");
                 ammoClip=Mathf.Clamp(ammoClip+ammoNeeded,0,ammoClipMax);
+                ui_clip.text = ammoClip.ToString();
                 reload.Play();
             }
         }
@@ -148,6 +160,7 @@ public class FPController : MonoBehaviour
         void OnCollisionEnter(Collision col) {
             if(col.gameObject.tag=="Ammo" && ammo<maxAmmo){        //ammo  pickup
                 ammo=Mathf.Clamp(ammo+10,0,maxAmmo);//checks or makes  it so that if ammo>maxammo cant update anymore
+                ui_ammo.text = ammo.ToString();
                 Debug.Log("Ammo = "+ ammo);
                 Destroy(col.gameObject);
                 ammopickup.Play();
@@ -157,15 +170,16 @@ public class FPController : MonoBehaviour
 
             if(col.gameObject.tag=="MedBox" && health<maxHealth){                   //med health pickup
                 health = Mathf.Clamp(health+20,0,maxHealth);
+                healthbar.value=health;
                 Debug.Log("health = "+ health);
                 Destroy(col.gameObject);
                 medpickup.Play();
                 }
 
-            if(col.gameObject.tag=="Lava"){
-                health=Mathf.Clamp(health-50,0,maxHealth);
-                Debug.Log("Lava, health is " + health);
-            }
+            //if(col.gameObject.tag=="Lava"){
+            //    health=Mathf.Clamp(health-50,0,maxHealth);
+            //    Debug.Log("Lava, health is " + health);
+            //}
 
             if(col.gameObject.tag == "Home"){
                 Vector3 pos = new Vector3(this.transform.position.x, Terrain.activeTerrain.SampleHeight(this.transform.position), this.transform.position.z);
@@ -235,6 +249,7 @@ public class FPController : MonoBehaviour
 
     public void TakeHit(float amount){    //add function as an event into the animator at a given attack moment
         health = (int) Mathf.Clamp(health-amount, 0, maxHealth);
+        healthbar.value=health;
         Debug.Log("new new health ="+health);
         if(health == 0){
             Vector3 pos = new Vector3(this.transform.position.x, Terrain.activeTerrain.SampleHeight(this.transform.position), this.transform.position.z);
