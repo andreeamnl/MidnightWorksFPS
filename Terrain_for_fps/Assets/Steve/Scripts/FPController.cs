@@ -167,6 +167,16 @@ public class FPController : MonoBehaviour
                 Debug.Log("Lava, health is " + health);
             }
 
+            if(col.gameObject.tag == "Home"){
+                Vector3 pos = new Vector3(this.transform.position.x, Terrain.activeTerrain.SampleHeight(this.transform.position), this.transform.position.z);
+                GameObject steve = Instantiate(stevePrefab,pos, this.transform.rotation);            //add 3rd person anim model for death scene
+                steve.GetComponent<Animator>().SetTrigger("Dance");
+                GameStats.gameOver = true;     //this has to happen BEFORE we destroy this.gameObject!!!
+                Debug.Log(GameStats.gameOver);
+                Destroy(this.gameObject);
+
+        }
+
             
         }
 
@@ -221,6 +231,8 @@ public class FPController : MonoBehaviour
 
     }
 
+    //Take hit/ die
+
     public void TakeHit(float amount){    //add function as an event into the animator at a given attack moment
         health = (int) Mathf.Clamp(health-amount, 0, maxHealth);
         Debug.Log("new new health ="+health);
@@ -234,6 +246,10 @@ public class FPController : MonoBehaviour
         }
 
     }
+
+    //Victory
+
+    
 
 
 }
